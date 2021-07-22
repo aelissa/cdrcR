@@ -1,0 +1,26 @@
+Package: cdrcR
+Title: Retrieve data from the CDRC APIs
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Alessia",
+           family = "Calafiore",
+           role = c("aut", "cre"),
+           email = "aelissa3388@gmail.com",
+           comment = c(ORCID = "0000-0002-5953-2891"))
+Description: A wrapper for the CDRC APIs that returns data frames or sf of 
+	CDRC data. Available datasets include the AHAH index, the 2019 Multidimensional Deprivation Index, the Internet User Classification, the Output Area Classification.
+License: `use_gpl3_license()` 
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9001
+Import:
+  magrittr
+  sf
+  httr
+  jsonlite
+  dplyr
+  urltools
+  purrr
+Suggests: 
+    testthat
