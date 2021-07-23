@@ -24,8 +24,8 @@ listCDRC<-function(){
 
   datacode<-unnest_datacode(records)
   records<-as.data.frame(do.call(rbind,records))
-  geography_level<-purrr:::map(records[["granularities"]],unlist)
-  geography_level<-purrr:::map(geography_level,1)
+  geography_level<-purrr::map(records[["granularities"]],unlist)
+  geography_level<-purrr::map(geography_level,1)
 
   records$DataCode<-datacode
   records$GeographyLevel<-do.call(rbind,geography_level)
@@ -40,8 +40,8 @@ listCDRC<-function(){
 unnest_datacode<-function(records){
   datacode<-list()
     for (i in 1:length(records)) {
-      tmp<-purrr:::map(records[[i]][["apiEndpoints"]],unlist)
-      tmp<-purrr:::map(tmp,"url")
+      tmp<-purrr::map(records[[i]][["apiEndpoints"]],unlist)
+      tmp<-purrr::map(tmp,"url")
       tmp<-do.call(rbind,tmp)
       tmp<-sub(".*https://api.cdrc.ac.uk/v1/", "", tmp)
       tmp<-sub("/.*", "", tmp)

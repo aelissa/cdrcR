@@ -15,14 +15,15 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1.9001
 Imports:
-  magrittr
-  sf
-  httr
-  jsonlite
-  dplyr
-  urltools
-  purrr
-  rlist
-  rjson
+  magrittr,
+  sf,
+  httr,
+  jsonlite,
+  dplyr,
+  urltools,
+  purrr,
+  rlist,
+  rjson,
+  tidyr
 Suggests: 
     testthat
