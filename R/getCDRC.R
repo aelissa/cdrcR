@@ -43,8 +43,7 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
                   "=",
                   geographyCode)
     single_code<-TRUE
-  }
-  else{
+  }else{
     single_code<-FALSE
     if(geography=="msoaCode"){
       geography<-"msoaCodes"
@@ -73,6 +72,7 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
                        httr::accept("*/*"),
                        httr::add_headers(Authorization = token,.headers = c("Content-Type"="application/json")))
   }
+
   if(httr::http_error(call)){
     if (call$status_code == 500){
       message("The token is expired. Login again with CDRC_login() to generate a new one.")
@@ -80,22 +80,21 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
       message(httr::message_for_status(call,"get the data"))
     }
     stop()
-  }
-  else{
+  }else{
     data<-httr::content(call,as = "text")
     data<-jsonlite::fromJSON(data)
     if(single_code==TRUE){
       data<-as.data.frame(data[[2]])
-    }
-    else{
+    }else{
       if(same){
         data<-as.data.frame(rlist::list.rbind(data[[2]]))
       }else{
         colnames(data)[2]<-"dataCol"
         data<-tidyr::unnest(data,dataCol)
       }
-
     }
+
+    if(nrow(data)==0)stop("No data found. Check the data coverage with `listCDRC()`")
 
     if(data_list$GeographyLevel =="LSOA"){
       geocode<-"LSOA11CD"
