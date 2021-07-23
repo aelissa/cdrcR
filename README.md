@@ -91,7 +91,7 @@ listCDRC()
 
 ###get Liverpool Local Authority District LSOAs  
 
-liverpool<-st_as_sf(liverpool)
+liverpool<-sf::st_as_sf(liverpool)
 
 ###get IUC data with geographical boundaries
 
