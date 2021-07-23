@@ -14,15 +14,16 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1.9001
-Import:
-  magrittr
-  sf
-  httr
-  jsonlite
-  dplyr
-  urltools
-  purrr
-  rlist
-  rjson
+Imports:
+  magrittr,
+  sf,
+  httr,
+  jsonlite,
+  dplyr,
+  urltools,
+  purrr,
+  rlist,
+  rjson,
+  tidyr
 Suggests: 
     testthat
