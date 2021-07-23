@@ -11,11 +11,11 @@
 #' @param password A character-string with your CDRC password.
 #' @return A response message which confirms the login was successful and how to see the API key.
 #' @examples \dontrun{
-#' cdrc_login(name='your-username',password='your-password')
+#' loginCDRC(name='your-username',password='your-password')
 #' }
 #' @export
 
-cdrc_login<-function(username,password){
+loginCDRC<-function(username,password){
 
   if(!is.character(username))stop("Username must be a string")
 
