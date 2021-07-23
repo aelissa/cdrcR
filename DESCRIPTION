@@ -24,6 +24,9 @@ Imports:
   purrr,
   rlist,
   rjson,
-  tidyr
+  tidyr,
+  rlang,
+  tidyselect,
+  utils
 Suggests: 
     testthat

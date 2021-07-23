@@ -57,10 +57,10 @@ save_api_key<-function(key, message){
     message('Your API token has been stored in your .Renviron and loaded. You can now access the CDRC API! To see your token run Sys.getenv("CDRC_API_KEY").') #\nTo use now, restart R or run `readRenviron("~/.Renviron")`
     }else{message('Login must be successful to load the API token.')}
   } else {
-  oldenv<-read.table(renv, stringsAsFactors = FALSE)
+  oldenv<-utils::read.table(renv, stringsAsFactors = FALSE)
   newenv <- oldenv[- grepl("CDRC_API_KEY", oldenv),]
   keyconcat <- paste0("CDRC_API_KEY='", key, "'")
-  write.table(newenv, renv, quote = FALSE, sep = "\n",
+  utils::write.table(newenv, renv, quote = FALSE, sep = "\n",
               col.names = FALSE, row.names = FALSE)
   # Append updated API key to .Renviron file
   write(keyconcat, renv, sep = "\n", append = TRUE)
