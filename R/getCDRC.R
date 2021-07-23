@@ -101,23 +101,27 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
       geocode<-"LSOA11CD"
       geocode_<-"lsoa11"
       geocode__<-"LSOA11CD"
+      init<-"OA"
     }
     if(data_list$GeographyLevel =="OA"){
       geocode<-"OA11CD"
       geocode_<-"outputArea"
       geocode__<-"outputArea"
+      init<-"LS"
     }
     if(data_list$GeographyLevel =="WZ"){
       geocode<-"wz11cd"
       geocode_<-"wzCode"
       geocode__<-"workPlaceZone"
+      init<-"OA"
     }
 
     colName<-data %>%
       dplyr::select(!tidyselect::ends_with("NM")) %>%
+      dplyr::select(!tidyselect::starts_with(init))%>%
       dplyr::select(tidyselect::contains(geocode)|tidyselect::contains(geocode_)|tidyselect::contains(geocode__)) %>% colnames()
     data<-data %>%
-      dplyr::rename(!!geocode := colName) %>%
+      dplyr::rename(!!geocode := tidyselect::all_of(colName)) %>%
       as.data.frame()
 
     if(any(duplicated(dplyr::select(data,!!geocode)))){
@@ -137,17 +141,23 @@ get_boundaries<-function(data,geo,single_code){
   if(geo =="LSOA"){
     ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Lower_Layer_Super_Output_Areas_December_2011_Boundaries_EW_BFC_V2/FeatureServer/0/query"
     geocode<-"LSOA11CD"
+    init<-"OA"
     }
   if(geo =="OA"){
     ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_December_2011_Boundaries_EW_BGC/FeatureServer/0/query"
     geocode<-"OA11CD"
+    init<-"LS"
     }
   if(geo =="WZ"){
     ogpURL<-"https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Workplace_Zone_December_2011_Boundaries/MapServer/0/query"
     geocode<-"wz11cd"
+    init<-"OA"
   }
 
-  cd<-data %>% dplyr::select(tidyselect::contains(geocode)) %>% as.data.frame()
+  cd<-data %>%
+    dplyr::select(!tidyselect::starts_with(init)) %>%
+    dplyr::select(tidyselect::contains(geocode)) %>%
+    as.data.frame()
 
   if(nrow(cd)==1){
     whereClause<-urltools::url_encode(paste0("?where=",cd[,1]))
