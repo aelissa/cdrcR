@@ -2,13 +2,13 @@
 #'
 #' @return A dataframe of the datasets available to request with the API.
 #' @examples \dontrun{
-#' dataset_list <- list_data()
+#' dataset_list <- listCDRC()
 #' View(dataset_list)
 #' }
 #' @export
 #'
 
-list_datasets<-function(){
+listCDRC<-function(){
   token<-paste0("Bearer ",Sys.getenv("CDRC_API_KEY"))
   records <- httr::GET("https://api.cdrc.ac.uk/v1/DataSetMetaData",httr::add_headers(Authorization = token))
   if(httr::http_error(records)){
