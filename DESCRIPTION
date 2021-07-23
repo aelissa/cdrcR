@@ -22,5 +22,6 @@ Import:
   dplyr
   urltools
   purrr
+  rlist
 Suggests: 
     testthat

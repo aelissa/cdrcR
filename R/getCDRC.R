@@ -20,12 +20,16 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
 
   geography <- match.arg(geography)
   if(any(!is.character(geographyCode)))stop("geographyCode needs to be a character vector.")
-  if(geography=="MSOA"){geography="msoaCode"}
-  if(geography=="LSOA"){geography="lsoaCode"}
-  if(geography=="postcode"){geography="postCode"}
+
 
   data_list<-listCDRC()
   if(!any(grepl(dataCode,data_list$DataCode)))stop("The dataCode is not in the list of available datasets. Check the list with `listCDRC()`.")
+  data_list<-dplyr::filter(data_list, grepl(dataCode, DataCode))
+  if(geography==data_list$GeographyLevel){same=TRUE}else{same=FALSE}
+
+  if(geography=="MSOA"){geography="msoaCode"}
+  if(geography=="LSOA"){geography="lsoaCode"}
+  if(geography=="postcode"){geography="postCode"}
 
   ####check geographyCode length
 
@@ -82,15 +86,45 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
       data<-as.data.frame(data[[2]])
     }
     else{
-      data<-as.data.frame(rlist::list.rbind(data[[2]]))
-      if(any(duplicated(data[,1]))){
-        data<-unique(data)
+      if(same){
+        data<-as.data.frame(rlist::list.rbind(data[[2]]))
+      }else{
+        colnames(data)[2]<-"dataCol"
+        data<-tidyr::unnest(data,dataCol)
       }
+
+    }
+
+    if(data_list$GeographyLevel =="LSOA"){
+      geocode<-"LSOA11CD"
+      geocode_<-"lsoa11"
+      geocode__<-"LSOA11CD"
+    }
+    if(data_list$GeographyLevel =="OA"){
+      geocode<-"OA11CD"
+      geocode_<-"outputArea"
+      geocode__<-"outputArea"
+    }
+    if(data_list$GeographyLevel =="WZ"){
+      geocode<-"wz11cd"
+      geocode_<-"wzCode"
+      geocode__<-"workPlaceZone"
+    }
+
+    colName<-data %>%
+      dplyr::select(!ends_with("NM")) %>%
+      dplyr::select(contains(geocode)|contains(geocode_)|contains(geocode__)) %>% colnames()
+    data<-data %>%
+      dplyr::rename(!!geocode := colName) %>%
+      as.data.frame()
+
+    if(any(duplicated(dplyr::select(data,!!geocode)))){
+      data<-data %>% dplyr::distinct(across(all_of(geocode)),.keep_all = T) %>%
+        as.data.frame()
     }
   }
 
   if(boundaries){
-    data_list<-dplyr::filter(data_list, grepl(dataCode, DataCode))
     data<-get_boundaries(data,data_list$GeographyLevel,single_code)
   }
 
@@ -98,26 +132,20 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
 }
 
 get_boundaries<-function(data,geo,single_code){
-  #codeList<-paste(data[[c(1)]],sep = "",collapse = "', '")
   if(geo =="LSOA"){
     ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Lower_Layer_Super_Output_Areas_December_2011_Boundaries_EW_BFC_V2/FeatureServer/0/query"
     geocode<-"LSOA11CD"
-    geocode_<-"LSOA11CD"
-    geocode__<-"LSOA11CD"
-  }
+    }
   if(geo =="OA"){
     ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_December_2011_Boundaries_EW_BGC/FeatureServer/0/query"
     geocode<-"OA11CD"
-    geocode_<-"outputArea"
-    geocode__<-"outputArea"
-  }
+    }
   if(geo =="WZ"){
     ogpURL<-"https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Workplace_Zone_December_2011_Boundaries/MapServer/0/query"
     geocode<-"wz11cd"
-    geocode_<-"wzCode"
-    geocode__<-"workPlaceZone"
   }
-  cd<-data %>% dplyr::select(contains(geocode)|contains(geocode_)|contains(geocode__))
+
+  cd<-data %>% dplyr::select(contains(geocode)) %>% as.data.frame()
 
   if(nrow(cd)==1){
     whereClause<-urltools::url_encode(paste0("?where=",cd[,1]))
