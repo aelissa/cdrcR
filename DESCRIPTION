@@ -23,5 +23,6 @@ Import:
   urltools
   purrr
   rlist
+  rjson
 Suggests: 
     testthat
