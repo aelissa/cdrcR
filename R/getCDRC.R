@@ -14,6 +14,8 @@
 #' View(ahah_data)
 #' plot(ahah_data$geometry)
 #' }
+#' @importFrom magrittr %>%
+#' @importFrom rlang :=
 #' @export
 
 getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,boundaries=FALSE){
@@ -112,14 +114,14 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
     }
 
     colName<-data %>%
-      dplyr::select(!ends_with("NM")) %>%
-      dplyr::select(contains(geocode)|contains(geocode_)|contains(geocode__)) %>% colnames()
+      dplyr::select(!tidyselect::ends_with("NM")) %>%
+      dplyr::select(tidyselect::contains(geocode)|tidyselect::contains(geocode_)|tidyselect::contains(geocode__)) %>% colnames()
     data<-data %>%
       dplyr::rename(!!geocode := colName) %>%
       as.data.frame()
 
     if(any(duplicated(dplyr::select(data,!!geocode)))){
-      data<-data %>% dplyr::distinct(across(all_of(geocode)),.keep_all = T) %>%
+      data<-data %>% dplyr::distinct(dplyr::across(tidyselect::all_of(geocode)),.keep_all = T) %>%
         as.data.frame()
     }
   }
@@ -145,7 +147,7 @@ get_boundaries<-function(data,geo,single_code){
     geocode<-"wz11cd"
   }
 
-  cd<-data %>% dplyr::select(contains(geocode)) %>% as.data.frame()
+  cd<-data %>% dplyr::select(tidyselect::contains(geocode)) %>% as.data.frame()
 
   if(nrow(cd)==1){
     whereClause<-urltools::url_encode(paste0("?where=",cd[,1]))

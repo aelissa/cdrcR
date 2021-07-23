@@ -3,3 +3,5 @@
 export(getCDRC)
 export(listCDRC)
 export(loginCDRC)
+importFrom(magrittr,"%>%")
+importFrom(rlang,":=")
