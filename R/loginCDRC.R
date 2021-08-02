@@ -1,7 +1,7 @@
 #' Login to the CDRC
 #'
 #' This function will log in a CDRC user based on the username and password. If you do not
-#' have a CDRC user yet, please register on https://data.cdrc.ac.uk/user/register
+#' have a CDRC user yet, please register on
 #' When you log in an api token is automatically generated, saved in your R environment and loaded, no further action is required from you to access the API.
 #'
 #' For safety reasons the API token will expire in 24h. This means that after 24h you need to log in again to generate a new API token which will be self-updated and load.
