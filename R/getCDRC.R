@@ -159,7 +159,8 @@ get_boundaries<-function(data,geo,single_code){
     as.data.frame()
 
   if(nrow(cd)==1){
-    whereClause<-urltools::url_encode(paste0("?where=",cd[,1]))
+    #whereClause<-urltools::url_encode(paste0("?where=",colnames(cd),cd[,1]))
+    whereClause<-paste0("?where=",colnames(cd),"%20%3D%20'",cd[,1],"'")
     ogpURL<-paste0(ogpURL,whereClause,"&outFields=*&outSR=4326&f=json")
     sf <- sf::st_read(ogpURL)
   }else{
@@ -185,9 +186,9 @@ splitAt <- function(x, pos) {
   unname(split(x,rep(c(0:(round(length(x)/pos))),each=pos)[1:length(x)]))
 }
 
+#https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Workplace_Zone_December_2011_Boundaries/MapServer/0/query?where=wz11cd%20%3D%20'E33032178'&outFields=*&outSR=4326&f=json
 
-
-
+#https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Workplace_Zone_December_2011_Boundaries/MapServer/0/query%3fwhere%3dE33032178&outFields=*&outSR=4326&f=json
 
 
 
