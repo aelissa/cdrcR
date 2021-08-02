@@ -48,10 +48,12 @@ which  will result in a data frame like the following extract:
 
 Pick the ```DataCode``` relative to the dataset you want to retreive data about and use it as input for the dataCode parameter in ```getCDRC``` (run ```?getCDRC()``` to see the detailed documentation). 
 
+Be aware that the API endpoints enable query for the following geographies: postcodes, LSOAs and MSOAs. Not all data are originally developed at these geography levels (you can find the original geography level for each dataset) with `listCDRC()`), therefore the areas that better overlap your required geography will be returned.
+
 ## Examples
 
 1. Get the overall Access to Healthy Assets & Hazards (AHAH) index for the following postcodes: L13AY,L82TJ,L83UL
-For the Access to Healthy Assets & Hazards (AHAH) index you can chose to get either the individual inputs (via AHAHInputs) or the overall domain index (via AHAHOverallIndexDomain).  In this example we are interested in the overall index to rank the postcodes above by their level of access to healthy assets and hazards.
+For the Access to Healthy Assets & Hazards (AHAH) index you can chose to get either the individual inputs (via AHAHInputs) or the overall domain index (via AHAHOverallIndexDomain).  In this example we are interested in the overall index to rank the postcodes above by their level of access to healthy assets and hazards. Please note that while the request is for postcodes the data is at LSOA level, therefore the LSOAs that better overlap the requested postcodes will be returned. 
 
 ```
 ###login
