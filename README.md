@@ -48,7 +48,7 @@ which  will result in a data frame like the following extract:
 
 Pick the ```DataCode``` relative to the dataset you want to retreive data about and use it as input for the dataCode parameter in ```getCDRC``` (run ```?getCDRC()``` to see the detailed documentation). 
 
-Be aware that the API endpoints enable query for the following geographies: postcodes, LSOAs and MSOAs. Not all data are originally developed at these geography levels (you can find the original geography level for each dataset) with `listCDRC()`), therefore the areas that better overlap your required geography will be returned.
+Be aware that the API endpoints enable query for the following geographies: postcodes, LSOAs, MSOAs, LAD codes and LAD names. Not all data are originally developed at these geography levels (you can find the original geography level for each dataset) with `listCDRC()`), therefore the areas that better overlap your required geography will be returned.
 
 ## Examples
 
@@ -80,7 +80,7 @@ ahah[order(ahah$ahah),c("postCode","ahah")]
 ```
 
 
-2. Get the Internet User Classification across Liverpool Local Authority and map it.
+2. Get the Internet User Classification across Liverpool having the LSOA codes and map it.
 
 ```
 ###login
@@ -91,7 +91,7 @@ loginCDRC(username="your-username",password="your-password")
 
 listCDRC()
 
-###get Liverpool Local Authority District LSOAs  
+###get Liverpool LSOAs  
 
 liverpool<-sf::st_as_sf(liverpool)
 
@@ -106,5 +106,22 @@ ggplot()+
 geom_sf(aes(fill=grpLabel, group=grpLabel),iuc,show.legend = T,color="NA")+
 theme_void()+
 labs(fill="IUC groups")
+
+```
+
+2. Get the Index of Multiple Deprivation of Sheffield and Leeds Local Authority Districts.
+
+```
+###login
+
+loginCDRC(username="your-username",password="your-password")
+
+###check dataCode
+
+listCDRC()
+
+###get the IMD data for Sheffield
+
+imd<-getCDRC("IMD2019",geography = "LADname", geographyCode = c("Sheffield","Leeds"))
 
 ```
