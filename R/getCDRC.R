@@ -18,7 +18,7 @@
 #' @importFrom rlang :=
 #' @export
 
-getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,boundaries=FALSE){
+getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA","LAD","LADname"),geographyCode,boundaries=FALSE){
 
   geography <- match.arg(geography)
   if(any(!is.character(geographyCode)))stop("geographyCode needs to be a character vector.")
@@ -32,6 +32,11 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
   if(geography=="MSOA"){geography="msoaCode"}
   if(geography=="LSOA"){geography="lsoaCode"}
   if(geography=="postcode"){geography="postCode"}
+  if(geography=="LAD"){geography="ladCode"}
+  if(geography=="LADname"){
+    geographyCode=search_ladCode(geographyCode)
+    geography="ladCode"
+  }
 
   ####check geographyCode length
 
@@ -54,7 +59,9 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA"),geographyCode,b
     if(geography=="postCode"){
       geography<-"postCodes"
     }
-
+    if(geography=="ladCode"){
+      geography<-"ladCodes"
+    }
     url<-paste0("https://api.cdrc.ac.uk/v1/",
                 dataCode,
                 "/",
@@ -153,6 +160,7 @@ get_boundaries<-function(data,geo,single_code){
     init<-"OA"
   }
 
+
   cd<-data %>%
     dplyr::select(!tidyselect::starts_with(init)) %>%
     dplyr::select(tidyselect::contains(geocode)) %>%
@@ -186,10 +194,27 @@ splitAt <- function(x, pos) {
   unname(split(x,rep(c(0:(round(length(x)/pos))),each=pos)[1:length(x)]))
 }
 
-#https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Workplace_Zone_December_2011_Boundaries/MapServer/0/query?where=wz11cd%20%3D%20'E33032178'&outFields=*&outSR=4326&f=json
+search_ladCode<-function(name){
+  urlLAD<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_December_2020_UK_BFC/FeatureServer/0/query?"
+  if(length(name)==1){
+      urlLAD<-paste0(urlLAD,"where=LAD20NM%20%3D%20'",name,"'&outFields=*&outSR=4326&f=json")
+      lad<-sf::st_read(urlLAD)
+      ldCD<-lad$LAD20CD
+  }else{
+    clause<-paste(name,sep = "",collapse = "', '")
+    clause<-paste0("LAD20NM IN ('",clause,"')")
+    req<-httr::POST(url = urlLAD,
+               body = list(where= clause,
+                           outfields="*",
+                           outSR = '4326',
+                           f='json'),
+               .headers = c("application/x-www-form-urlencoded"))
+    lads<-sf::read_sf(httr::content(req,type='text',encoding='UTF-8'))
+    ldCD<-lads$LAD20CD
+  }
 
-#https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Workplace_Zone_December_2011_Boundaries/MapServer/0/query%3fwhere%3dE33032178&outFields=*&outSR=4326&f=json
-
+  return(ldCD)
+}
 
 
 
