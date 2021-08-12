@@ -16,7 +16,7 @@ A response message which confirms the login was successful and how to see the AP
 }
 \description{
 This function will log in a CDRC user based on the username and password. If you do not
-have a CDRC user yet, please register on https://data.cdrc.ac.uk/user/register
+have a CDRC user yet, please register on https://apps.cdrc.ac.uk/datasetportal/Identity/Account/Register
 When you log in an api token is automatically generated, saved in your R environment and loaded, no further action is required from you to access the API.
 }
 \details{

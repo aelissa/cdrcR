@@ -4,9 +4,9 @@
 #'
 #'
 #' @param dataCode A character-string API identifier associated which each dataset in the CDRC. To find out the dataCode of your desired dataset run `listCDRC()`.
-#' @param geography The geographical levels in which the data can be retrieved. It can be postcode, MSOA or LSOA.
+#' @param geography The geographical levels in which the data can be retrieved. It can be postcode, MSOA, LSOA, LAD or LADname.
 #' Note that the geography in which the data are retrieved does not necessarily correspond with the geography of the data. For example, it is possible to query data of the AHAH index by postcodes although the index is originally at LSOA level. Therefore you will see returned the LSOAs that better match the required postcodes.
-#' @param geographyCode A character-vector of one or more postcodes, LSOA codes, MSOA codes, LAD codes and LAD names.
+#' @param geographyCode A character-vector of one or more postcodes, LSOA codes, MSOA codes, LAD codes or LAD names.
 #' @param boundaries if FALSE (the default), returns a data frame of the desired data. if TRUE, uses the Open Geography Portal API to return an sf with the 'geometry' column.
 #' @return A dataframe or sf depending whether boundaries are set to FALSE or TRUE respectively.
 #' @examples \dontrun{
