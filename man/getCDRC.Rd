@@ -6,7 +6,7 @@
 \usage{
 getCDRC(
   dataCode,
-  geography = c("postcode", "MSOA", "LSOA"),
+  geography = c("postcode", "MSOA", "LSOA", "LAD", "LADname"),
   geographyCode,
   boundaries = FALSE
 )
@@ -14,10 +14,10 @@ getCDRC(
 \arguments{
 \item{dataCode}{A character-string API identifier associated which each dataset in the CDRC. To find out the dataCode of your desired dataset run \code{listCDRC()}.}
 
-\item{geography}{The geographical levels in which the data can be retrieved. It can be postcode, MSOA or LSOA.
+\item{geography}{The geographical levels in which the data can be retrieved. It can be postcode, MSOA, LSOA, LAD or LADname.
 Note that the geography in which the data are retrieved does not necessarily correspond with the geography of the data. For example, it is possible to query data of the AHAH index by postcodes although the index is originally at LSOA level. Therefore you will see returned the LSOAs that better match the required postcodes.}
 
-\item{geographyCode}{A character-vector of one or more postcodes, LSOA codes or MSOA codes.}
+\item{geographyCode}{A character-vector of one or more postcodes, LSOA codes, MSOA codes, LAD codes or LAD names.}
 
 \item{boundaries}{if FALSE (the default), returns a data frame of the desired data. if TRUE, uses the Open Geography Portal API to return an sf with the 'geometry' column.}
 }
