@@ -16,8 +16,7 @@ devtools::install_github("aelissa/cdrcR")
 
 ## Register to the CDRC
 
-To use the CDRC APIs you need to register to the CDRC. 
-As we are on a testing phase the API registration is not open yet.
+To use the CDRC APIs you need to register to the CDRC [HERE](https://apps.cdrc.ac.uk/datasetportal/Identity/Account/Register)
 
 ##  Usage 
 
