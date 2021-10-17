@@ -29,7 +29,8 @@ Obtain data from the CDRC datasets. To find out what datasets are available and 
 }
 \examples{
 \dontrun{
-ahah_data <- getCDRC("AHAHOverallIndexDomain",geography = "postcode", geographyCode = c("CH430UQ","LS61EF","L83UL"), boundaries = TRUE)
+ahah_data <- getCDRC("AHAHOverallIndexDomain",geography = "postcode",
+geographyCode = c("CH430UQ","LS61EF","L83UL"), boundaries = TRUE)
 View(ahah_data)
 plot(ahah_data$geometry)
 }
