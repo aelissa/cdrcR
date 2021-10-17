@@ -7,9 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "aelissa3388@gmail.com",
            comment = c(ORCID = "0000-0002-5953-2891"))
-Description: A wrapper for the CDRC APIs that returns data frames or sf of 
-	CDRC data. Available datasets include the AHAH index, the 2019 Multidimensional Deprivation Index, the Internet User Classification, the Output Area Classification.
-License: GPL (>=3) 
+Description: A wrapper for the CDRC APIs that returns data frames or sf of CDRC data. 
+License: GPL-3 + file LICENSE 
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

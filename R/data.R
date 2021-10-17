@@ -1,6 +1,6 @@
 #' Liverpool LSOA boundaries
 #'
-#' A dataset containing Lower Layer Super Output Areas in Liverpool Local Autority
+#' A dataset containing Lower Layer Super Output Areas in Liverpool Local Authority
 #'
 #' @format A simple feature object with 297 rows and 7 variables:
 #' \describe{
