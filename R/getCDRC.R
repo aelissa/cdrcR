@@ -10,7 +10,8 @@
 #' @param boundaries if FALSE (the default), returns a data frame of the desired data. if TRUE, uses the Open Geography Portal API to return an sf with the 'geometry' column.
 #' @return A dataframe or sf depending whether boundaries are set to FALSE or TRUE respectively.
 #' @examples \dontrun{
-#' ahah_data <- getCDRC("AHAHOverallIndexDomain",geography = "postcode", geographyCode = c("CH430UQ","LS61EF","L83UL"), boundaries = TRUE)
+#' ahah_data <- getCDRC("AHAHOverallIndexDomain",geography = "postcode",
+#' geographyCode = c("CH430UQ","LS61EF","L83UL"), boundaries = TRUE)
 #' View(ahah_data)
 #' plot(ahah_data$geometry)
 #' }
