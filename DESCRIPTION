@@ -1,5 +1,5 @@
 Package: cdrcR
-Title: Retrieve data from the CDRC APIs
+Title: Load Consumer Data Research Centre Data in R
 Version: 0.0.1
 Authors@R: 
     person(given = "Alessia",
@@ -7,8 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "aelissa3388@gmail.com",
            comment = c(ORCID = "0000-0002-5953-2891"))
-Description: A wrapper for the CDRC APIs that returns data frames or sf of CDRC data. 
-License: GPL-3 + file LICENSE 
+Description: A wrapper for the CDRC API that returns data frames or sf of CDRC data. 
+License: GPL-3  
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
