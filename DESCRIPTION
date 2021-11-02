@@ -1,5 +1,5 @@
 Package: cdrcR
-Title: Load Consumer Data Research Centre Data in R
+Title: Load 'CDRC' Data
 Version: 0.0.1
 Authors@R: 
     person(given = "Alessia",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "aelissa3388@gmail.com",
            comment = c(ORCID = "0000-0002-5953-2891"))
-Description: A wrapper for the CDRC API that returns data frames or sf of CDRC data. 
+Description: A wrapper for the 'CDRC' 'API' that returns data frames or 'sf' of 'CDRC' data. The 'API' web reference is:<https://api.cdrc.ac.uk/swagger/index.html>. 
 License: GPL-3  
 Encoding: UTF-8
 LazyData: true
