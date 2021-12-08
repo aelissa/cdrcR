@@ -6,7 +6,13 @@ A list of the datasets that can be accessed through these enpoints and their met
 
 ## Installation
 
-You can install the development version of ```cdrcR``` from Github using devtools.
+You can install ```cdrcR``` from CRAN running
+
+```
+install.packages("cdrcR")
+```
+
+You can also install the development version of ```cdrcR``` from Github using devtools.
 
 ```
 # install.packages("devtools")
