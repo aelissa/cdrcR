@@ -146,7 +146,6 @@ getCDRC<-function(dataCode,geography=c("postcode","MSOA","LSOA","LAD","LADname")
 
 get_boundaries<-function(data,geo,single_code){
   if(geo =="LSOA"){
-#    ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Lower_Layer_Super_Output_Areas_December_2011_Boundaries_EW_BFC_V2/FeatureServer/0/query"
     ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LSOA_Dec_2011_Boundaries_Generalised_Clipped_BGC_EW_V3_2022/FeatureServer/0/query"
     geocode<-"LSOA11CD"
     init<-"OA"
@@ -157,7 +156,7 @@ get_boundaries<-function(data,geo,single_code){
     init<-"LS"
     }
   if(geo =="WZ"){
-    ogpURL<-"https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Workplace_Zone_December_2011_Boundaries/MapServer/0/query"
+    ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Workplace_Zones_Dec_2011_FCB_in_England_and_Wales_2022/FeatureServer/0/query"
     geocode<-"wz11cd"
     init<-"OA"
   }
@@ -197,7 +196,6 @@ splitAt <- function(x, pos) {
 }
 
 search_ladCode<-function(name){
-  #urlLAD<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Local_Authority_Districts_December_2020_UK_BFC/FeatureServer/0/query?"
   urlLAD<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD_DEC_2020_UK_BGC/FeatureServer/0/query?"
   if(length(name)==1){
       urlLAD<-paste0(urlLAD,"where=LAD20NM%20%3D%20'",name,"'&outFields=*&outSR=4326&f=json")
