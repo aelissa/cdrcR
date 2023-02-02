@@ -51,7 +51,7 @@ which  will result in a data frame like the following extract:
 | Internet User Classification (IUC) 2018        |                           IUC2018 |  https://data.cdrc.ac.uk/dataset/internet-user-classification      |   GreatBritain     |      LSOA |
 
 
-Pick the ```DataCode``` relative to the dataset you want to retreive data about and use it as input for the dataCode parameter in ```getCDRC``` (run ```?getCDRC()``` to see the detailed documentation). 
+Pick the ```DataCode``` relative to the dataset you want to retrieve data about and use it as input for the dataCode parameter in ```getCDRC``` (run ```?getCDRC()``` to see the detailed documentation). 
 
 Be aware that the API endpoints enable query for the following geographies: postcodes, LSOAs, MSOAs, LAD codes and LAD names. Not all data are originally developed at these geography levels (you can find the original geography level for each dataset) with `listCDRC()`), therefore the areas that better overlap your required geography will be returned.
 

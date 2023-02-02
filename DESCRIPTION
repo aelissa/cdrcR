@@ -1,6 +1,6 @@
 Package: cdrcR
 Title: Load 'CDRC' Data
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     person(given = "Alessia",
            family = "Calafiore",
