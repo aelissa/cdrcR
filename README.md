@@ -6,14 +6,14 @@ A list of the datasets that can be accessed through these enpoints and their met
 
 ## Installation
 
-You can install `cdrcR` from CRAN running
+You can install `cdrcR` from CRAN running:
 
 ```
 install.packages("cdrcR")
 ```
 
-The CRAN version currently do not retreive OA boundaries. To get those please install the development version. Data affected are MODUM and OA classification.
-You can install the development version of `cdrcR` from Github using devtools.
+The CRAN version currently does not retrieve OA boundaries. To get those please install the development version. Data affected are MODUM and OA classification.
+You can install the development version of `cdrcR` from Github using devtools running:
 
 ```
 # install.packages("devtools")
