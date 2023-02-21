@@ -151,10 +151,11 @@ get_boundaries<-function(data,geo,single_code){
     init<-"OA"
     }
   if(geo =="OA"){
-    ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_December_2011_Boundaries_EW_BGC/FeatureServer/0/query"
+    ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_Dec_2011_Boundaries_EW_BGC_2022/FeatureServer/0/query?"
     geocode<-"OA11CD"
     init<-"LS"
-    }
+  }
+
   if(geo =="WZ"){
     ogpURL<-"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Workplace_Zones_Dec_2011_FCB_in_England_and_Wales_2022/FeatureServer/0/query"
     geocode<-"wz11cd"

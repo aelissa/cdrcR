@@ -1,6 +1,6 @@
 Package: cdrcR
 Title: Load 'CDRC' Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Alessia",
            family = "Calafiore",
@@ -12,7 +12,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.2.3
 Imports:
   magrittr,
   sf,

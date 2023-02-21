@@ -1,18 +1,19 @@
 # cdrcR
 
-```cdrcR``` is an R wrapper to access the CDRC APIs endpoints and retrieve CDRC data programmatically. 
-The package is designed to have one main function -- ```getCDRC``` -- which allows users to get data from all CDRC APIs endpoints. 
-A list of the datasets that can be accessed through these enpoints and their metadata is obtained by running ```listCDRC()```. Such list will also provide users with a dataset identifier --the **dataCode**-- which will address the data request to the correct endpoint. Run ```?getCDRC()``` to access the function full documentation.
+`cdrcR` is an R wrapper to access the CDRC APIs endpoints and retrieve CDRC data programmatically.
+The package is designed to have one main function -- `getCDRC` -- which allows users to get data from all CDRC APIs endpoints.
+A list of the datasets that can be accessed through these enpoints and their metadata is obtained by running `listCDRC()`. Such list will also provide users with a dataset identifier --the **dataCode**-- which will address the data request to the correct endpoint. Run `?getCDRC()` to access the function full documentation.
 
 ## Installation
 
-You can install ```cdrcR``` from CRAN running
+You can install `cdrcR` from CRAN running
 
 ```
 install.packages("cdrcR")
 ```
 
-You can also install the development version of ```cdrcR``` from Github using devtools.
+The CRAN version currently do not retreive OA boundaries. To get those please install the development version. Data affected are MODUM and OA classification.
+You can install the development version of `cdrcR` from Github using devtools.
 
 ```
 # install.packages("devtools")
@@ -24,41 +25,44 @@ devtools::install_github("aelissa/cdrcR")
 
 To use the CDRC APIs you need to register to the CDRC [HERE](https://apps.cdrc.ac.uk/datasetportal/Identity/Account/Register)
 
-##  Usage 
+## Usage
 
 Load the library.
+
 ```
 library(cdrcR)
 ```
+
 Log-in with the username and password that you used when registered to the CDRC.
 
 ```
 loginCDRC(username="your-username",password="your-password")
 ```
+
 Then you can list the datasets available and the relative dataCode which identifies the API endpoint.
 
 ```
 listCDRC()
 
 ```
-which  will result in a data frame like the following extract:
 
-|	Title 	|	DataCode  | dataSetURL | GeographicalCoverage | GeographyLevel	|
-|-----------------------------|--------------------------------|--------------------------------------------------------------------------|--------------------|---------|							
-| Access to Healthy Assets & Hazards (AHAH) 2019  |      AHAHInputs, AHAHOverallIndexDomain |  https://data.cdrc.ac.uk/dataset/access-healthy-assets-hazards-ahah    |     GreatBritain     |      LSOA         |                    
- |Classification of Workplace Zones (COWZ) 2011    |     	COWZUK2011 | https://data.cdrc.ac.uk/dataset/classification-workplace-zones-cowz     |   UnitedKingdom      |       WZ |                             
-|Index of Multiple Deprivation (IMD) 2019           |                        IMD2019 | https://data.cdrc.ac.uk/dataset/index-multiple-deprivation-imd       | UnitedKingdom      |     LSOA                                  
-| Internet User Classification (IUC) 2018        |                           IUC2018 |  https://data.cdrc.ac.uk/dataset/internet-user-classification      |   GreatBritain     |      LSOA |
+which will result in a data frame like the following extract:
 
+| Title                                          | DataCode                           | dataSetURL                                                          | GeographicalCoverage | GeographyLevel |
+| ---------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------- | -------------------- | -------------- |
+| Access to Healthy Assets & Hazards (AHAH) 2019 | AHAHInputs, AHAHOverallIndexDomain | https://data.cdrc.ac.uk/dataset/access-healthy-assets-hazards-ahah  | GreatBritain         | LSOA           |
+| Classification of Workplace Zones (COWZ) 2011  | COWZUK2011                         | https://data.cdrc.ac.uk/dataset/classification-workplace-zones-cowz | UnitedKingdom        | WZ             |
+| Index of Multiple Deprivation (IMD) 2019       | IMD2019                            | https://data.cdrc.ac.uk/dataset/index-multiple-deprivation-imd      | UnitedKingdom        | LSOA           |
+| Internet User Classification (IUC) 2018        | IUC2018                            | https://data.cdrc.ac.uk/dataset/internet-user-classification        | GreatBritain         | LSOA           |
 
-Pick the ```DataCode``` relative to the dataset you want to retrieve data about and use it as input for the dataCode parameter in ```getCDRC``` (run ```?getCDRC()``` to see the detailed documentation). 
+Pick the `DataCode` relative to the dataset you want to retrieve data about and use it as input for the dataCode parameter in `getCDRC` (run `?getCDRC()` to see the detailed documentation).
 
 Be aware that the API endpoints enable query for the following geographies: postcodes, LSOAs, MSOAs, LAD codes and LAD names. Not all data are originally developed at these geography levels (you can find the original geography level for each dataset) with `listCDRC()`), therefore the areas that better overlap your required geography will be returned.
 
 ## Examples
 
 1. Get the overall Access to Healthy Assets & Hazards (AHAH) index for the following postcodes: L13AY,L82TJ,L83UL
-For the Access to Healthy Assets & Hazards (AHAH) index you can chose to get either the individual inputs (via AHAHInputs) or the overall domain index (via AHAHOverallIndexDomain).  In this example we are interested in the overall index to rank the postcodes above by their level of access to healthy assets and hazards. Please note that while the request is for postcodes the data is at LSOA level, therefore the LSOAs that better overlap the requested postcodes will be returned. 
+   For the Access to Healthy Assets & Hazards (AHAH) index you can chose to get either the individual inputs (via AHAHInputs) or the overall domain index (via AHAHOverallIndexDomain). In this example we are interested in the overall index to rank the postcodes above by their level of access to healthy assets and hazards. Please note that while the request is for postcodes the data is at LSOA level, therefore the LSOAs that better overlap the requested postcodes will be returned.
 
 ```
 ###login
@@ -84,7 +88,6 @@ ahah[order(ahah$ahah),c("postCode","ahah")]
 
 ```
 
-
 2. Get the Internet User Classification across Liverpool having the LSOA codes and map it.
 
 ```
@@ -96,7 +99,7 @@ loginCDRC(username="your-username",password="your-password")
 
 listCDRC()
 
-###get Liverpool LSOAs  
+###get Liverpool LSOAs
 
 liverpool<-sf::st_as_sf(liverpool)
 
